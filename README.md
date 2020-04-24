@@ -3,10 +3,12 @@ Convert any free format text file with numerical areas into scientific data form
 
 Description
 ---
-This program search for numerical fields in a text file, whatever be its formating, and export all numerics. 
+This program searches for numerical fields in a text file, whatever be its formating, and export all numerics. 
 Data sets (scalar, vector, matrix) are given unique names, based on file content. Results can be generated for e.g. Matlab, IDL, Scilab, Octave, XML, HTML, NeXus/HDF5... 
 
 This utility avoids scientists to write load routines for each text data format they want to analyze.
+
+NOTE: if you wish to process the data faster, work on the ```/dev/shm``` shared ramdisk on a Linux box.
 
 Installation
 ---
