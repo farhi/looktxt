@@ -64,62 +64,62 @@ looktxt  [-b][-c][-f  FORMAT][-H][-s  SEC ...][-m META ...] file1 file2 ...
 
 with the following main options:
 
- ```-h | --help```
-        displays the command help
+```-h | --help```
+- displays the command help
 
- ```-b | --binary```
-        sets binary mode for large numerical blocks (more than 100  ele‐
+```-b | --binary```
+- sets binary mode for large numerical blocks (more than 100  ele‐
         ments). This option creates an additional '.bin' file to be read
         accordingly to the references indicated for each  field  in  the
         output  text  data file. This is transparently done when reading
         output files with matlab(1), scilab(1), idl(1), and octave(1).
 
- ```-c | --catenate```
-        Catenates similar numerical fields (which  have  similar  dimen‐
+```-c | --catenate```
+- Catenates similar numerical fields (which  have  similar  dimen‐
         sions and names)
 
- ```-F | --force```
-        Overwrites existing files
+```-F | --force```
+- Overwrites existing files
 
- ```-f FORMAT | --format=FORMAT```
-        Sets the output format for generated files
+```-f FORMAT | --format=FORMAT```
+- Sets the output format for generated files
 
- ```--fortran | --wrapped```
-        Catenates  single  wrapped  output  lines with previous matrices
+```--fortran | --wrapped```
+- Catenates  single  wrapped  output  lines with previous matrices
         (e.g. caused by the 80 chars per line limit in old data  formats
         written by fortran codes)
 
- ```-H | --headers```
-        Extracts headers for each numerical field (recommended)
+```-H | --headers```
+- Extracts headers for each numerical field (recommended)
 
- ```-s SEC | --section=SEC ...```
-        Classifies  fields  into sections matching word SEC. This option
+```-s SEC | --section=SEC ...```
+- Classifies  fields  into sections matching word SEC. This option
         can be repeated
 
- ```-m META | --metadata=META ...```
-       Extracts lines containing word  META  as  user  metadata.   This
+```-m META | --metadata=META ...```
+- Extracts lines containing word  META  as  user  metadata.   This
         option can be repeated
 
 And other less used options:
 
- ```--fast```
- When numerical data blocks only use isspace(3) separators (\n \r
+```--fast```
+- When numerical data blocks only use isspace(3) separators (\n \r
         \f \t \v and space), the reading can be made  faster  with  even
         lower memory requirements.
 
 ``` --silent```
-        Silent mode, to only display fatal errors
+- Silent mode, to only display fatal errors
 
- ```--verbose | -v | --debug```
-        To display plenty of informations
+```--verbose | -v | --debug```
+- To display plenty of informations
 
- ```--makerows=NAME ...```
-        When  a numerical data block label matching NAME is found, it is
+```--makerows=NAME ...```
+- When  a numerical data block label matching NAME is found, it is
         transformed into a row vector. This  may  be  used  for  wrapped
         files (--fortran option). This option can be repeated
 
 ``` -o FILE | --outfile=FILE```
-        to use FILE as output file. The streams stdout and stderr may be
+- to use FILE as output file. The streams stdout and stderr may be
         used, but we then recommend to specifiy the --silent  option  to
         avoid unwanted messages in the output.
         
