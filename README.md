@@ -1,9 +1,9 @@
 # looktxt
-Convert any free format text file with numerical areas into scientific data formats
+Convert any free format text file with numerical areas into scientific data formats.
 
 Description
 ---
-This program searches for numerical fields in a text file, whatever be its formating, and export all numerics. 
+This program searches for numerical fields in a text file, whatever be its formating, and exports all numerics. 
 Data sets (scalar, vector, matrix) are given unique names, based on file content. Results can be generated for e.g. Matlab, IDL, Scilab, Octave, XML, HTML, NeXus/HDF5... 
 
 This utility avoids scientists to write load routines for each text data format they want to analyze.
@@ -28,17 +28,17 @@ Usage
 Extracting data from a text file is a never ending story. Usually,  one
 will  write a short script or program/function to analyse each specific
 input data format. The looktxt command purpose is to read any text data
-file containing numerical blocks just as a human would read it. Specif‐
-ically, it looks for contiguous numerical blocks, which are stored into
+file containing numerical blocks just as a human would read it. Specifically, 
+it looks for contiguous numerical blocks, which are stored into
 matrices,  and  other parts of the input file are classified as headers
 which are optionally exported. Numerical blocks are labelled  according
 to the preceeding header block last word.
 
-Blocks  read  from the data file can be sorted into sections. Each sec‐
-tion SEC starts when it appears in a header and contains all  following
-fields  until a new section is found or the end of the file.  Addition‐
-ally, one may search for specific metadata keywords, at user's  choice.
-Each  data field matching the keyword metadata META in its headers will
+Blocks read from the data file can be sorted into sections. Each section 
+SEC starts when it appears in a header and contains all  following
+fields  until a new section is found or the end of the file.  Additionally, 
+one may search for specific metadata keywords, at user's  choice.
+Each  data field matching the keyword metadata META in its header will
 create a new entry in the MetaData section.
 
 The output data files may be generated using "Matlab", "Scilab", "IDL",
@@ -47,9 +47,8 @@ option), using a structure-like hierarchy. This hierarchy contains  all
 sections,  metadata  and optionally headers that have been found during
 the parsing of the input data file.
 
-After using looktxt foo the data is simply  loaded  into  memory  using
-e.g.  'matlab> ans=foo;' or directly with "matlab> looktxt('foo')". The
-exact method to import data is indicated at the begining of the  output
+After using ```looktxt foo``` the data is simply  loaded  into  memory  using
+e.g.  'matlab> ans=foo;'. The exact method to import data is indicated at the begining of the  output
 data file, and depends on the format.
 
 The  command  can handle large files within a very short time, with minimal memory requirements.
@@ -65,40 +64,39 @@ looktxt  [-b][-c][-f  FORMAT][-H][-s  SEC ...][-m META ...] file1 file2 ...
 with the following main options:
 
 ```-h | --help```
-- displays the command help
+- displays the command help.
 
 ```-b | --binary```
-- sets binary mode for large numerical blocks (more than 100  ele‐
-        ments). This option creates an additional '.bin' file to be read
+- sets binary mode for large numerical blocks (more than 100  elements). 
+This option creates an additional '.bin' file to be read
         accordingly to the references indicated for each  field  in  the
         output  text  data file. This is transparently done when reading
         output files with matlab(1), scilab(1), idl(1), and octave(1).
 
 ```-c | --catenate```
-- Catenates similar numerical fields (which  have  similar  dimen‐
-        sions and names)
+- Catenates similar numerical fields (which  have  similar  dimensions and names).
 
 ```-F | --force```
-- Overwrites existing files
+- Overwrites existing files.
 
 ```-f FORMAT | --format=FORMAT```
-- Sets the output format for generated files
+- Sets the output format for generated files.
 
 ```--fortran | --wrapped```
 - Catenates  single  wrapped  output  lines with previous matrices
         (e.g. caused by the 80 chars per line limit in old data  formats
-        written by fortran codes)
+        written by fortran codes).
 
 ```-H | --headers```
-- Extracts headers for each numerical field (recommended)
+- Extracts headers for each numerical field (recommended).
 
 ```-s SEC | --section=SEC ...```
 - Classifies  fields  into sections matching word SEC. This option
-        can be repeated
+        can be repeated.
 
 ```-m META | --metadata=META ...```
 - Extracts lines containing word  META  as  user  metadata.   This
-        option can be repeated
+        option can be repeated.
 
 And other less used options:
 
@@ -108,15 +106,15 @@ And other less used options:
         lower memory requirements.
 
 ``` --silent```
-- Silent mode, to only display fatal errors
+- Silent mode, to only display fatal errors.
 
 ```--verbose | -v | --debug```
-- To display plenty of informations
+- To display plenty of informations.
 
 ```--makerows=NAME ...```
 - When  a numerical data block label matching NAME is found, it is
         transformed into a row vector. This  may  be  used  for  wrapped
-        files (--fortran option). This option can be repeated
+        files (--fortran option). This option can be repeated.
 
 ``` -o FILE | --outfile=FILE```
 - to use FILE as output file. The streams stdout and stderr may be
@@ -125,18 +123,18 @@ And other less used options:
         
 Examples
 ---
-Typical usage (exporting headers as well, default output as Matlab/Octave script)
+Typical usage (exporting headers as well, default output as Matlab/Octave script).
 ```
 looktxt --headers foo
 ```
 
-For  large data files (using binary float storage, catenate and fortran
+For  large data files (using binary float storage, catenate and fortran:
  mode)
 ```
 looktxt --force --catenate --headers --binary --fortran foo
 ```
 
-Sorting data into sections, and searching a metadata keyword
+Sorting data into sections, and searching a metadata keyword:
 ```
 looktxt --section SEC1 --section SEC2 --metadata META1 --headers foo
 ```
@@ -158,6 +156,8 @@ will result in the following Matlab structure:
 License
 ---
 GPL-2
+
+This tool is extracted from the iFit project <http://ifit.mccode.org/>.
 
 Author
 ---
