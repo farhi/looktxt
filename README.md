@@ -15,11 +15,28 @@ This program is a pure C code, with no dependency. Just compile and install it w
 make
 sudo make install
 ```
+The executable will be installed e.g. in /usr/bin or /usr/local/bin. 
 
 You may as well compile it manually with:
 ```bash
 cc -O2 looktxt.c -o looktxt
 ```
+
+Installation with NeXus/HDF5 format support
+---
+It is possible to define the ```NEXUS_NAPI``` environment variable and the ```USE_NEXUS``` C symbol to specify the NeXus library location, e.g.:
+```bash
+export NEXUS_NAPI=-I/usr/include -DUSE_NEXUS -lNeXus
+make
+```
+
+The default compilation checks for the NeXus installation (e.g. in ```/usr/include/napi.h```, ```/usr/lib/libNeXus.so.0```, and ```/usr/lib/libNeXus.a```), and uses it when available.
+
+The corresponding manual compilation is:
+```bash
+cc -O2 looktxt.c -o looktxt -DUSE_NEXUS -lNeXus
+```
+which requires ```napi.h``` and ```libNeXus.a``` to be available to the C compiler.
 
 Usage
 ----
