@@ -8,13 +8,14 @@ Data sets (scalar, vector, matrix) are given unique names, based on file content
 
 This utility avoids scientists to write load routines for each text data format they want to analyze.
 
-NOTE: if you wish to process the data faster, work on the ```/dev/shm``` shared ramdisk on a Linux box.
+**NOTE**: if you wish to process the data faster, work on the ```/dev/shm``` shared ramdisk on a Linux box. 
 
 Installation
 ---
 This program is a pure C code, with no dependency. Just compile and install it with:
 ```bash
 make
+make test
 sudo make install
 ```
 The executable will be installed e.g. in /usr/bin or /usr/local/bin. 
@@ -24,21 +25,24 @@ You may as well compile it manually with:
 cc -O2 looktxt.c -o looktxt
 ```
 
-Installation with NeXus/HDF5 format support
+Installation with NeXus/HDF format support
 ---
+The [NeXus API](https://github.com/nexusformat/code) is a C library wrapper around [HDF](https://en.wikipedia.org/wiki/Hierarchical_Data_Format) and XML, to ease reading and writing of such files.
+
 It is possible to define the ```NEXUS_NAPI``` environment variable and the ```USE_NEXUS``` C symbol to specify the NeXus library location, e.g.:
 ```bash
 export NEXUS_NAPI=-I/usr/include -DUSE_NEXUS -lNeXus
 make
 ```
+where you may indicate any path to the `napi.h` header file (with `-Ipath_to_napi`) and/or `/usr/lib/libNeXus.a` (with `-Lpath_to_libnexus`). The above example indicates that `napi.h` is in `/usr/include`, and assumes `libNeXus.a` is available to the C compiler (e.g. in `/usr/lib`).
 
-The default compilation checks for the NeXus installation (e.g. in ```/usr/include/napi.h```, ```/usr/lib/libNeXus.so.0```, and ```/usr/lib/libNeXus.a```), and uses it when available.
+The default compilation checks for the NeXus installation (e.g. availability of `/usr/include/napi.h` and `/usr/lib/libNeXus.a`), and uses it when available.
 
-The corresponding manual compilation is:
+The typical manual compilation is:
 ```bash
 cc -O2 looktxt.c -o looktxt -DUSE_NEXUS -lNeXus
 ```
-which requires ```napi.h``` and ```libNeXus.a``` to be available to the C compiler.
+which requires `napi.h` and `libNeXus.a` to be available to the C compiler.
 
 Usage
 ----
@@ -48,8 +52,8 @@ input data format. The looktxt command purpose is to read any text data
 file containing numerical blocks just as a human would read it. Specifically, 
 it looks for contiguous numerical blocks, which are stored into
 matrices,  and  other parts of the input file are classified as headers
-which are optionally exported. Numerical blocks are labelled  according
-to the preceeding header block last word.
+which are optionally exported. Numerical blocks are labeled  according
+to the preceding header block last word.
 
 Blocks read from the data file can be sorted into sections. Each section 
 SEC starts when it appears in a header and contains all  following
@@ -72,6 +76,10 @@ The  command  can handle large files within a very short time, with minimal memo
 
 Use ```looktxt -h``` to identify available output formats, and the default one (e.g. Matlab/Octave).
 
+The recommended options are:
+- `--fast --headers --fortran` for usual text files.
+- `--binary --fast --headers --fortran` for usual text files exported into Matlab, Scilab, Octave and IDL.
+
 Syntax
 ---
 ```
@@ -86,9 +94,9 @@ with the following main options:
 ```-b | --binary```
 - sets binary mode for large numerical blocks (more than 100  elements). 
 This option creates an additional '.bin' file to be read
-        accordingly to the references indicated for each  field  in  the
-        output  text  data file. This is transparently done when reading
-        output files with matlab(1), scilab(1), idl(1), and octave(1).
+accordingly to the references indicated for each  field  in  the
+output  text  data file. This is transparently done when reading
+output files with matlab(1), scilab(1), idl(1), and octave(1). The binary option is implicit when generating HDF files.
 
 ```-c | --catenate```
 - Catenates similar numerical fields (which  have  similar  dimensions and names).
@@ -145,7 +153,7 @@ Typical usage (exporting headers as well, default output as Matlab/Octave script
 looktxt --headers foo
 ```
 
-For  large data files (using binary float storage, catenate and fortran:
+For  large data files (using binary float storage, catenate and fortran
  mode)
 ```
 looktxt --force --catenate --headers --binary --fortran foo
@@ -158,7 +166,7 @@ looktxt --section SEC1 --section SEC2 --metadata META1 --headers foo
 
 will result in the following Matlab structure:
 
-```
+```matlab
       Creator: 'Looktxt 1.0.8 24 Sept 2009 Farhi E. [farhi at ill.fr]'
          User: 'farhi on localhost'
        Source: 'foo'
@@ -174,7 +182,7 @@ License
 ---
 GPL-2
 
-This tool is extracted from the iFit project <http://ifit.mccode.org/>.
+This tool is extracted from the iFit project <http://ifit.mccode.org/>. The optional NeXus/HDF API can be obtained at https://github.com/nexusformat/code
 
 Author
 ---
