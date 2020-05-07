@@ -1,4 +1,7 @@
 # Makefile to compile looktxt.
+# Required: gcc
+# Optional: HDF5/NeXus library. get it at 
+#
 # just type: make
 
 ifeq ($(NEXUS_NAPI),)
@@ -18,8 +21,13 @@ install:
 
 distclean: clean
 
+test:
+	./looktxt --version
+	./looktxt --verbose --test examples/* 
+	@echo Test OK
+
 uninstall:
 	-rm -f $(DESTDIR)$(prefix)/usr/bin/looktxt
 
-.PHONY: all install clean distclean uninstall
+.PHONY: all install clean distclean uninstall test
 
