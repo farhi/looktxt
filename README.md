@@ -31,7 +31,8 @@ The [NeXus API](https://github.com/nexusformat/code) is a C library wrapper arou
 
 It is possible to define the ```NEXUS_NAPI``` environment variable and the ```USE_NEXUS``` C symbol to specify the NeXus library location, e.g.:
 ```bash
-export NEXUS_NAPI=-I/usr/include -DUSE_NEXUS -lNeXus
+sudo apt install libnexus-dev
+export NEXUS_NAPI=-I/usr/include/nexus -DUSE_NEXUS -lNeXus
 make
 ```
 where you may indicate any path to the `napi.h` header file (with `-Ipath_to_napi`) and/or `/usr/lib/libNeXus.a` (with `-Lpath_to_libnexus`). The above example indicates that `napi.h` is in `/usr/include`, and assumes `libNeXus.a` is available to the C compiler (e.g. in `/usr/lib`).
