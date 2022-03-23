@@ -1,6 +1,8 @@
 # looktxt
 Convert any free format text file with numerical areas into scientific data formats.
 
+:warning: this repository is **obsolete** - please refer to https://gitlab.com/soleil-data-treatment/soleil-software-projects/looktxt ⚠️
+
 Description
 ---
 This program searches for numerical fields in a text file, whatever be its formating, and exports all numerics. 
